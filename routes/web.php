@@ -26,11 +26,17 @@ Route::post('/logout', function () {
 // Main HR Portal Routes
 Route::get('/dashboard', HRDashboard::class)->name('dashboard');
 Route::get('/employees', EmployeeList::class)->name('employees');
-Route::get('/payroll', PayrollProcessor::class)->name('payroll');
+use App\Livewire\Onboarding\OnboardingDashboard;
+use App\Livewire\Recruitment\RecruitmentHub;
+
+// Onboarding Module Route
+Route::get('/onboarding', OnboardingDashboard::class)->name('onboarding');
 
 // Recruitment & ATS Module Routes
-Route::get('/recruitment/vacancies', VacancyManager::class)->name('recruitment.vacancies');
-Route::get('/recruitment/candidates', CandidatePipeline::class)->name('recruitment.candidates');
+Route::get('/recruitment', RecruitmentHub::class)->name('recruitment');
+Route::get('/recruitment/vacancies', RecruitmentHub::class)->name('recruitment.vacancies');
+Route::get('/recruitment/candidates', RecruitmentHub::class)->name('recruitment.candidates');
+Route::get('/recruitment/interviews', RecruitmentHub::class)->name('recruitment.interviews');
 
 // Admin Portal Protected Area (/admin)
 Route::middleware([AdminPortalMiddleware::class])->prefix('admin')->group(function () {

@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class HRDashboard extends Component
@@ -26,6 +27,7 @@ class HRDashboard extends Component
         }
     }
 
+    #[On('toggleNotificationsDrawer')]
     public function toggleNotifications()
     {
         $this->showNotificationsDrawer = !$this->showNotificationsDrawer;

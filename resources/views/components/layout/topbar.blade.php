@@ -41,8 +41,8 @@ if (empty($userInitials)) { $userInitials = 'SR'; }
         <!-- Bell Notification Button -->
         <button 
             type="button" 
-            wire:click="$dispatch('toggleNotificationsDrawer')" 
-            class="relative w-9 h-9 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 shadow-sm transition group"
+            @click="Livewire.dispatch('toggleNotificationsDrawer')" 
+            class="relative w-9 h-9 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 shadow-sm transition group cursor-pointer"
             title="Notifications"
         >
             <svg class="w-4 h-4 text-slate-600 group-hover:text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
