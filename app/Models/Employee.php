@@ -15,6 +15,7 @@ class Employee extends Model
         'department_id',
         'reporting_manager_id',
         'employee_code',
+        'office_id',
         'first_name',
         'last_name',
         'email',

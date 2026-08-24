@@ -20,6 +20,7 @@ return new class extends Migration
             
             // Primary Identity
             $table->string('employee_code')->unique();
+            $table->string('office_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();

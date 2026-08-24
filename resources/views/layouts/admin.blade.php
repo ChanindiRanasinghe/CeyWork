@@ -14,9 +14,7 @@
         <div>
             <!-- Admin Brand Badge -->
             <div class="flex items-center gap-3 px-2 py-3 mb-6 bg-indigo-950/40 rounded-xl border border-indigo-800/40">
-                <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center text-sm shadow">
-                    ⚙
-                </div>
+                <img src="/images/logo.png" alt="CEYWork Logo" class="w-9 h-9 rounded-lg object-cover shadow shrink-0 border border-indigo-700/50" />
                 <div>
                     <span class="text-white font-bold text-sm block">CEYWork Admin</span>
                     <span class="text-[10px] text-indigo-400 font-medium block">Control Panel</span>

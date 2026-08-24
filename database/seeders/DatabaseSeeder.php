@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Financial Planning, EPF/ETF & Accounting',
         ]);
 
-        // 4. Seed Admin User
+        // 4. Seed Admin User & Employee File
         $adminUser = User::create([
             'name' => 'System Administrator',
             'email' => 'admin@ceywork.lk',
@@ -57,13 +57,28 @@ class DatabaseSeeder extends Seeder
         ]);
         $adminUser->assignRole('System Administrator');
 
-        // 5. Seed HR Manager User & Employee File
+        Employee::create([
+            'user_id' => $adminUser->id,
+            'company_id' => $company->id,
+            'department_id' => $hrDept->id,
+            'employee_code' => 'EMP-0000',
+            'office_id' => 'ACM-ADM-001',
+            'first_name' => 'System',
+            'last_name' => 'Administrator',
+            'email' => 'admin@ceywork.lk',
+            'designation' => 'System Admin',
+            'joined_date' => '2023-01-01',
+            'status' => 'active',
+        ]);
+
+        // 5. Seed HR Senior User & Employee File
         $hrUser = User::create([
             'name' => 'Amara Jayawardena',
             'email' => 'amara.j@ceywork.lk',
             'password' => Hash::make('password'),
             'company_id' => $company->id,
         ]);
+        $hrUser->assignRole('HR Senior');
         $hrUser->assignRole('HR Manager');
 
         $hrManagerEmployee = Employee::create([
@@ -71,12 +86,13 @@ class DatabaseSeeder extends Seeder
             'company_id' => $company->id,
             'department_id' => $hrDept->id,
             'employee_code' => 'EMP-0001',
+            'office_id' => 'ACM-HRS-001',
             'first_name' => 'Amara',
             'last_name' => 'Jayawardena',
             'email' => 'amara.j@ceywork.lk',
             'phone' => '+94 77 123 4567',
             'nic_passport' => '199084501234',
-            'designation' => 'Head of HR',
+            'designation' => 'Head of HR (Senior)',
             'branch' => 'Colombo HQ',
             'contract_type' => 'permanent',
             'joined_date' => '2023-01-15',
@@ -91,6 +107,29 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $hrDept->update(['manager_id' => $hrManagerEmployee->id]);
+
+        // 5b. Seed HR Junior User & Employee File
+        $hrJrUser = User::create([
+            'name' => 'Nimali Fernando',
+            'email' => 'nimali.f@ceywork.lk',
+            'password' => Hash::make('password'),
+            'company_id' => $company->id,
+        ]);
+        $hrJrUser->assignRole('HR Junior');
+
+        Employee::create([
+            'user_id' => $hrJrUser->id,
+            'company_id' => $company->id,
+            'department_id' => $hrDept->id,
+            'employee_code' => 'EMP-0003',
+            'office_id' => 'ACM-HRJ-001',
+            'first_name' => 'Nimali',
+            'last_name' => 'Fernando',
+            'email' => 'nimali.f@ceywork.lk',
+            'designation' => 'HR Assistant (Junior)',
+            'joined_date' => '2024-01-10',
+            'status' => 'active',
+        ]);
 
         // 6. Seed Sample Engineering Employee
         $engUser = User::create([
@@ -107,6 +146,7 @@ class DatabaseSeeder extends Seeder
             'department_id' => $engDept->id,
             'reporting_manager_id' => $hrManagerEmployee->id,
             'employee_code' => 'EMP-0002',
+            'office_id' => 'ACM-ENG-002',
             'first_name' => 'Kasun',
             'last_name' => 'Perera',
             'email' => 'kasun.p@ceywork.lk',
@@ -124,6 +164,22 @@ class DatabaseSeeder extends Seeder
             'bank_name' => 'Sampath Bank',
             'bank_branch' => 'Bambalapitiya',
             'bank_account_no' => '00291003451',
+        ]);
+
+        // 6b. Seed Pending Unactivated Employee (For Account Activation Demo Flow)
+        Employee::create([
+            'user_id' => null, // Pending activation
+            'company_id' => $company->id,
+            'department_id' => $engDept->id,
+            'employee_code' => 'EMP-011',
+            'office_id' => 'ACM-ENG-011',
+            'first_name' => 'Ravi',
+            'last_name' => 'Sharma',
+            'email' => 'ravi.sharma@acme.com',
+            'phone' => '+94 77 000 1111',
+            'designation' => 'Software Engineer',
+            'joined_date' => '2026-08-01',
+            'status' => 'active',
         ]);
         // 7. Seed Sample Vacancy & Candidates
         $vacancy = \App\Models\Vacancy::create([

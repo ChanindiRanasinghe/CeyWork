@@ -68,6 +68,14 @@ class RolePermissionSeeder extends Seeder
                 'manage-candidates', 'screen-candidates', 'manage-job-offers', 'manage-onboarding',
                 'approve-leave', 'manage-attendance', 'manage-performance', 'manage-offboarding', 'view-hr-reports'
             ],
+            'HR Senior' => [
+                'view-all-employees', 'create-employees', 'edit-employees', 'manage-vacancies',
+                'manage-candidates', 'screen-candidates', 'manage-job-offers', 'manage-onboarding',
+                'approve-leave', 'manage-attendance', 'manage-performance', 'manage-offboarding', 'view-hr-reports'
+            ],
+            'HR Junior' => [
+                'view-all-employees', 'screen-candidates', 'manage-onboarding', 'manage-attendance'
+            ],
             'Department Manager' => [
                 'view-all-employees', 'conduct-interviews', 'approve-leave', 'manage-performance'
             ],
