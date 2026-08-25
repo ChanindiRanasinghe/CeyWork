@@ -120,46 +120,52 @@
                 </span>
             </div>
 
-            <!-- SVG Line Chart Graphic -->
-            <div class="relative w-full h-64 mt-2">
-                <svg class="w-full h-full overflow-visible" viewBox="0 0 500 200" preserveAspectRatio="none">
-                    <defs>
-                        <linearGradient id="headcountGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.25" />
-                            <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.0" />
-                        </linearGradient>
-                    </defs>
+            <!-- Responsive Line Chart Container -->
+            <div class="w-full">
+                <div class="flex items-stretch gap-3 h-48 sm:h-56">
+                    <!-- Left Y-Axis HTML Labels -->
+                    <div class="flex flex-col justify-between text-[11px] font-bold text-slate-400 shrink-0 text-right pr-1 py-1 w-8">
+                        <span>295</span>
+                        <span>280</span>
+                        <span>265</span>
+                        <span>250</span>
+                    </div>
 
-                    <!-- Horizontal Gridlines -->
-                    <line x1="30" y1="20" x2="480" y2="20" stroke="#e2e8f0" stroke-dasharray="4 4" />
-                    <text x="0" y="24" fill="#94a3b8" font-size="10" font-weight="bold">295</text>
+                    <!-- SVG Chart Area -->
+                    <div class="flex-1 relative min-w-0">
+                        <svg class="w-full h-full overflow-visible" viewBox="0 0 500 160" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="headcountGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.22" />
+                                    <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.0" />
+                                </linearGradient>
+                            </defs>
 
-                    <line x1="30" y1="75" x2="480" y2="75" stroke="#e2e8f0" stroke-dasharray="4 4" />
-                    <text x="0" y="79" fill="#94a3b8" font-size="10" font-weight="bold">280</text>
+                            <!-- Horizontal Gridlines -->
+                            <line x1="0" y1="10" x2="500" y2="10" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
+                            <line x1="0" y1="58" x2="500" y2="58" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
+                            <line x1="0" y1="106" x2="500" y2="106" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" />
+                            <line x1="0" y1="155" x2="500" y2="155" stroke="#e2e8f0" stroke-width="1.5" vector-effect="non-scaling-stroke" />
 
-                    <line x1="30" y1="130" x2="480" y2="130" stroke="#e2e8f0" stroke-dasharray="4 4" />
-                    <text x="0" y="134" fill="#94a3b8" font-size="10" font-weight="bold">265</text>
+                            <!-- Area Fill -->
+                            <polygon points="15,115 110,100 205,82 300,55 395,40 485,25 485,155 15,155" fill="url(#headcountGrad)" />
 
-                    <line x1="30" y1="185" x2="480" y2="185" stroke="#e2e8f0" stroke-dasharray="4 4" />
-                    <text x="0" y="189" fill="#94a3b8" font-size="10" font-weight="bold">250</text>
+                            <!-- Red Line -->
+                            <polyline points="15,115 110,100 205,82 300,55 395,40 485,25" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" />
 
-                    <!-- Area Fill -->
-                    <polygon points="40,135 120,118 200,102 280,72 360,60 450,45 450,185 40,185" fill="url(#headcountGrad)" />
+                            <!-- Line Points -->
+                            <circle cx="15" cy="115" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                            <circle cx="110" cy="100" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                            <circle cx="205" cy="82" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                            <circle cx="300" cy="55" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                            <circle cx="395" cy="40" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                            <circle cx="485" cy="25" r="4.5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                        </svg>
+                    </div>
+                </div>
 
-                    <!-- Red Line -->
-                    <polyline points="40,135 120,118 200,102 280,72 360,60 450,45" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" />
-
-                    <!-- Line Points -->
-                    <circle cx="40" cy="135" r="4" fill="#b91c1c" />
-                    <circle cx="120" cy="118" r="4" fill="#b91c1c" />
-                    <circle cx="200" cy="102" r="4" fill="#b91c1c" />
-                    <circle cx="280" cy="72" r="4" fill="#b91c1c" />
-                    <circle cx="360" cy="60" r="4" fill="#b91c1c" />
-                    <circle cx="450" cy="45" r="4" fill="#b91c1c" />
-                </svg>
-
-                <!-- Month X Labels -->
-                <div class="flex justify-between px-6 text-xs text-slate-400 font-semibold mt-2">
+                <!-- Month X Labels Aligned -->
+                <div class="flex justify-between pl-12 pr-2 text-xs text-slate-400 font-bold mt-2">
                     <span>Mar</span>
                     <span>Apr</span>
                     <span>May</span>

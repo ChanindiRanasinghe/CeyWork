@@ -85,7 +85,25 @@
                             <x-badge :status="$emp->status">{{ ucfirst($emp->status) }}</x-badge>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <button class="text-xs font-semibold text-teal-600 hover:text-teal-800">View Profile</button>
+                            <div class="flex items-center justify-end gap-2">
+                                <button 
+                                    type="button" 
+                                    wire:click="openEditModal({{ $emp->id }})" 
+                                    class="px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 transition"
+                                    title="Admin Edit Employee"
+                                >
+                                    ✏️ Edit
+                                </button>
+                                <button 
+                                    type="button" 
+                                    wire:click="deleteEmployee({{ $emp->id }})" 
+                                    onclick="return confirm('Are you sure you want to delete this employee record?')"
+                                    class="px-2.5 py-1 text-xs font-bold rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition"
+                                    title="Admin Delete Employee"
+                                >
+                                    🗑️
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @empty
@@ -187,6 +205,105 @@
                     <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
                         <button type="button" wire:click="$set('showCreateModal', false)" class="px-4 py-2 text-sm text-slate-600">Cancel</button>
                         <button type="submit" class="px-4 py-2 text-sm bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-semibold">Save Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
+    <!-- Edit Employee Modal (Admin) -->
+    @if($showEditModal)
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-6 shadow-2xl border border-slate-200">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <h2 class="text-lg font-bold text-slate-900">Edit Employee Record (Admin Controls)</h2>
+                    <button wire:click="$set('showEditModal', false)" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+                </div>
+
+                <form wire:submit.prevent="updateEmployee" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">First Name *</label>
+                            <input type="text" wire:model="first_name" class="w-full text-sm border rounded-lg p-2.5">
+                            @error('first_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Last Name *</label>
+                            <input type="text" wire:model="last_name" class="w-full text-sm border rounded-lg p-2.5">
+                            @error('last_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Employee Code *</label>
+                            <input type="text" wire:model="employee_code" class="w-full text-sm border rounded-lg p-2.5">
+                            @error('employee_code') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Email *</label>
+                            <input type="email" wire:model="email" class="w-full text-sm border rounded-lg p-2.5">
+                            @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Status *</label>
+                            <select wire:model="status" class="w-full text-sm border rounded-lg p-2.5 font-bold">
+                                <option value="active">Active</option>
+                                <option value="on-leave">On Leave</option>
+                                <option value="suspended">Suspended</option>
+                                <option value="terminated">Terminated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Department *</label>
+                            <select wire:model="department_id" class="w-full text-sm border rounded-lg p-2.5">
+                                <option value="">Select Department</option>
+                                @foreach($departments as $dept)
+                                    <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('department_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Designation *</label>
+                            <input type="text" wire:model="designation" class="w-full text-sm border rounded-lg p-2.5">
+                            @error('designation') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">NIC / Passport</label>
+                            <input type="text" wire:model="nic_passport" class="w-full text-sm border rounded-lg p-2.5">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Basic Salary (LKR) *</label>
+                            <input type="number" step="0.01" wire:model="basic_salary" class="w-full text-sm border rounded-lg p-2.5 font-bold">
+                            @error('basic_salary') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">EPF No.</label>
+                            <input type="text" wire:model="epf_number" class="w-full text-xs border rounded p-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">ETF No.</label>
+                            <input type="text" wire:model="etf_number" class="w-full text-xs border rounded p-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">B Card No.</label>
+                            <input type="text" wire:model="b_card_no" class="w-full text-xs border rounded p-2">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 border-t border-slate-100 pt-4">
+                        <button type="button" wire:click="$set('showEditModal', false)" class="px-4 py-2 text-sm text-slate-600">Cancel</button>
+                        <button type="submit" class="px-5 py-2 text-sm bg-[#b91c1c] hover:bg-[#a11818] text-white rounded-lg font-bold">Update Employee Record</button>
                     </div>
                 </form>
             </div>

@@ -53,9 +53,13 @@ if (empty($userInitials)) { $userInitials = 'SR'; }
             </span>
         </button>
 
-        <!-- User Avatar Circle -->
-        <div class="w-8 h-8 rounded-full bg-[#b91c1c] text-white font-bold text-xs flex items-center justify-center shadow-sm">
+        <!-- User Avatar Circle (Links to Profile Settings) -->
+        <a 
+            href="/profile" 
+            class="w-9 h-9 rounded-full bg-[#b91c1c] hover:bg-[#a11818] text-white font-bold text-xs flex items-center justify-center shadow-sm hover:shadow transition transform hover:scale-105 cursor-pointer"
+            title="Profile Settings"
+        >
             {{ $userInitials }}
-        </div>
+        </a>
     </div>
 </header>
