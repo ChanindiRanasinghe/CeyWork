@@ -15,6 +15,15 @@ class RecruitmentHub extends Component
     public string $departmentFilter = '';
     public string $statusFilter = '';
 
+    public function mount(): void
+    {
+        if (request()->is('recruitment/candidates')) {
+            $this->activeTab = 'pipelines';
+        } elseif (request()->is('recruitment/interviews')) {
+            $this->activeTab = 'interviews';
+        }
+    }
+
     public function setTab(string $tab): void
     {
         $this->activeTab = $tab;

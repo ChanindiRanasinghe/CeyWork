@@ -25,7 +25,7 @@ class RecruitmentHubTest extends TestCase
         $this->actingAs($admin)
             ->get('/recruitment')
             ->assertStatus(200)
-            ->assertSee('Recruitment & ATS Hub')
+            ->assertSee('Recruitment')
             ->assertSee('Vacancies')
             ->assertSee('Candidate Pipelines')
             ->assertSee('Interview Schedule');

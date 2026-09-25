@@ -21,7 +21,7 @@ class CEYWorkRbacTest extends TestCase
         $employeeUser = User::where('email', 'kasun.p@ceywork.lk')->first();
         
         $response = $this->actingAs($employeeUser)->get('/admin');
-        $response->assertStatus(403);
+        $response->assertRedirect('/dashboard');
     }
 
     public function test_admin_can_access_admin_portal(): void

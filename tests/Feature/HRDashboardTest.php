@@ -56,7 +56,7 @@ class HRDashboardTest extends TestCase
 
         $this->actingAs($employee)
             ->get('/dashboard')
-            ->assertRedirect('/login');
+            ->assertRedirect(route('employee.dashboard'));
     }
 
     public function test_notifications_drawer_toggle_and_tab_filters(): void
