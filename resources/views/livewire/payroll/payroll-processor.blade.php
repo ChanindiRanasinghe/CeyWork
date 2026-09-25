@@ -190,6 +190,9 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <input type="month" wire:model="selectedMonth" class="text-xs font-semibold border border-slate-200 rounded-xl px-3 py-2 bg-slate-50" />
+                    <button wire:click="exportPayslipSummaryCsv" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-xs">
+                        📥 Export C3 CSV
+                    </button>
                     <button wire:click="processPayroll" class="px-4 py-2 bg-[#b91c1c] hover:bg-[#a11818] text-white font-bold text-xs rounded-xl shadow-xs transition active:scale-95">
                         ⚡ Run Payroll Batch
                     </button>
