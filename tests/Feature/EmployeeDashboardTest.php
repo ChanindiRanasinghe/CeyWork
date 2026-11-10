@@ -48,4 +48,3 @@ class EmployeeDashboardTest extends TestCase
             ->assertSet('showSupportModal', false);
     }
 }
-
