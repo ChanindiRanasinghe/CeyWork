@@ -216,5 +216,107 @@ class DatabaseSeeder extends Seeder
             'status' => 'interview-scheduled',
             'experience_summary' => '4 years Full Stack Engineer with Livewire experience.',
         ]);
+
+        // 8. Seed Leave Balances & Requests for Employees
+        $allEmps = Employee::all();
+        foreach ($allEmps as $emp) {
+            \App\Models\LeaveBalance::create([
+                'employee_id' => $emp->id,
+                'year' => 2026,
+                'annual_total' => 14,
+                'annual_taken' => rand(2, 6),
+                'casual_total' => 7,
+                'casual_taken' => rand(1, 3),
+                'sick_total' => 14,
+                'sick_taken' => rand(0, 2),
+            ]);
+        }
+
+        if ($allEmps->isNotEmpty()) {
+            \App\Models\LeaveRequest::create([
+                'employee_id' => $allEmps->first()->id,
+                'leave_type' => 'annual',
+                'start_date' => '2026-09-01',
+                'end_date' => '2026-09-03',
+                'days_count' => 3,
+                'reason' => 'Family vacation in Nuwara Eliya',
+                'status' => 'pending',
+            ]);
+
+            // 9. Seed Assets
+            \App\Models\Asset::create([
+                'company_id' => $company->id,
+                'employee_id' => $allEmps->first()->id,
+                'name' => 'MacBook Pro 16" M3',
+                'code' => 'AST-001',
+                'category' => 'Laptop',
+                'serial_no' => 'MBP-2026-001',
+                'condition' => 'Good',
+                'assigned_date' => '2026-01-15',
+            ]);
+
+            \App\Models\Asset::create([
+                'company_id' => $company->id,
+                'employee_id' => null,
+                'name' => 'Dell UltraSharp 27" 4K',
+                'code' => 'AST-002',
+                'category' => 'Monitor',
+                'serial_no' => 'DEL-2026-002',
+                'condition' => 'Good',
+            ]);
+
+            // 10. Seed Training & Enrollments
+            $training = \App\Models\Training::create([
+                'title' => 'Sri Lankan Labor Law Compliance 2026',
+                'provider' => 'CEYWork Academy',
+                'category' => 'Compliance',
+                'duration' => '4h',
+                'deadline' => 'Sep 30',
+                'is_mandatory' => true,
+                'total_enrolled' => $allEmps->count(),
+            ]);
+
+            \App\Models\TrainingEnrollment::create([
+                'training_id' => $training->id,
+                'employee_id' => $allEmps->first()->id,
+                'status' => 'in_progress',
+            ]);
+
+            // 11. Seed KPIs & Performance Reviews
+            \App\Models\Kpi::create([
+                'department_id' => $hrDept->id,
+                'title' => 'Onboarding SLA & Statutory Compliance',
+                'department' => 'Human Resources',
+                'status' => 'on-track',
+                'target' => '95%',
+                'actual' => '98%',
+                'percentage' => 100,
+                'trend' => 'up',
+            ]);
+
+            \App\Models\PerformanceReview::create([
+                'employee_id' => $allEmps->first()->id,
+                'reviewer_id' => $adminUser->id,
+                'period' => 'Q3 2026',
+                'self_rating' => 4.8,
+                'manager_rating' => 4.9,
+                'status' => 'Completed',
+                'feedback' => 'Exceptional technical execution and leadership.',
+            ]);
+
+            // 12. Seed Historical Payroll Record
+            \App\Models\PayrollRecord::create([
+                'employee_id' => $allEmps->first()->id,
+                'month' => '2026-08',
+                'basic_salary' => 350000.00,
+                'allowances' => 50000.00,
+                'epf_employee' => 28000.00,
+                'epf_employer' => 42000.00,
+                'etf_employer' => 10500.00,
+                'net_salary' => 372000.00,
+                'status' => 'processed',
+                'payment_date' => '2026-08-28',
+            ]);
+        }
     }
 }

@@ -235,6 +235,14 @@ class PerformanceDashboard extends Component
 
         $this->successMessage = 'KPI "' . $this->editTitle . '" updated successfully by Admin!';
         $this->showEditKpiModal = false;
+
+        \App\Models\Kpi::where('id', $this->editingKpiId)->orWhere('title', $this->editTitle)->update([
+            'status' => $this->editStatus,
+            'actual' => $this->editActual,
+            'target' => $this->editTarget,
+            'percentage' => $this->editPercentage,
+            'trend' => $this->editTrend,
+        ]);
     }
 
     public function dismissSuccessMessage(): void

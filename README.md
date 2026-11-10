@@ -1,58 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CEYWork — Enterprise HR Management & Statutory Payroll System
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <strong>Modern, Compliant, Agentic HRMS Tailored for Sri Lankan Enterprises</strong>
 </p>
 
-## About Laravel
+CEYWork is a production-grade Human Resource Management and Payroll Portal engineered with **Laravel 13**, **Livewire 4**, and **Tailwind CSS v4**. It features end-to-end employee lifecycle management, an automated Sri Lankan EPF/ETF statutory calculation engine, an Applicant Tracking System (ATS), and an embedded **Agentic AI Command Bar**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Key Modules & Architecture
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. 🤖 Agentic AI Co-pilot & Command Bar (`Ctrl+K`)
+- **Natural Language HR Assistant**: Global hotkey modal triggered via `Ctrl+K` or top navigation bar.
+- **Autonomous ATS Candidate Screener**: Evaluates active applicants against job vacancy criteria and automatically updates stages.
+- **Statutory Audit Engine**: Instant verification of 8% employee EPF, 12% employer EPF, and 3% ETF contributions.
+- **Fast Entity Navigation**: Instant lookup for employees, leave requests, training programs, and assets.
 
-## Learning Laravel
+### 2. 🇱🇰 Sri Lankan Statutory Payroll Engine
+- **Automated EPF/ETF Calculations**: Compliant with the Employees' Provident Fund Act No. 15 of 1958 and Employees' Trust Fund Act No. 46 of 1980.
+- **Statutory Form C3 Export**: Generates Department of Labour-compliant C3 Monthly Return CSV files.
+- **Batch Processing**: Single-click payroll finalization across company departments with transaction locking.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. 👥 Comprehensive Employee Lifecycle Management
+- **Directory & Profiles**: Filterable employee register with National Identity Card (NIC), B-Card, EPF/ETF numbers, and bank account specifications.
+- **Onboarding Hub**: Tracking of statutory Sri Lankan verification documents (Grama Niladhari Certificate, Police Clearance, B-Card registration).
+- **Offboarding & Gratuity**: Gratuity Act calculations, IT clearance, asset recovery, and cessation notices (EPF Form K).
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. 🔒 Role-Based Access Control (RBAC) Matrix
+- Dynamic permission matrix spanning 7 distinct tiers:
+  - `System Administrator`
+  - `Company Administrator`
+  - `HR Manager (Senior)`
+  - `HR Executive (Junior)`
+  - `Department Manager`
+  - `Interviewer`
+  - `Employee`
+- Dedicated Admin Portal for granular permission toggling and organizational department management.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 5. 📊 Attendance, Performance & Training
+- **Leave Management**: Tracking of statutory Annual (14 days), Casual (7 days), and Medical/Sick (14 days) leave balances with managerial approval workflows.
+- **Performance & Appraisal**: Quarterly KPI targets, self-evaluations, and managerial scorecards.
+- **Training Hub**: Course catalogs, compliance tracking, and automated completion verification.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| **Backend Framework** | PHP 8.3+, Laravel 13 |
+| **Reactive Frontend** | Livewire 4, Blade Components |
+| **Styling & Design** | Tailwind CSS v4, PostCSS, CEYWork Design System |
+| **Asset Pipeline** | Vite 8, Laravel Vite Plugin |
+| **Database** | SQLite (testing & local), MySQL / PostgreSQL (production) |
+| **Testing** | PHPUnit 12, Livewire Test Suite |
+| **Version Control** | Git, GitHub |
+
+---
+
+## 🧪 Testing & Verification
+
+CEYWork contains a comprehensive automated feature and unit testing suite covering all modules:
 
 ```bash
-composer require laravel/boost --dev
+# Run the complete test suite
+php artisan test
 
-php artisan boost:install
+# Run specific module tests
+php vendor/phpunit/phpunit/phpunit tests/Unit/EnterpriseModelsTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/AgenticAiTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/PayrollProcessorTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/EmployeeManagementTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/AttendanceDashboardTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/AdminPortalTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/AssetManagementTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/PerformanceDashboardTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/TrainingDashboardTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/OffboardingDashboardTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/ReportsAnalyticsTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/ProfileSettingsTest.php
+php vendor/phpunit/phpunit/phpunit tests/Feature/EmployeeDashboardTest.php
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## ⚙️ Installation & Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ChanindiRanasinghe/CeyWork.git
+   cd CeyWork
+   ```
 
-## Code of Conduct
+2. **Install PHP and Node dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Configure Environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+4. **Run Migrations & Seeders:**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Start Development Servers:**
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📄 License
+The CEYWork HR Management System is proprietary software maintained by CEYWork Enterprise.

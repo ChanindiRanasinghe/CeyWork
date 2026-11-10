@@ -254,6 +254,12 @@ class AttendanceDashboard extends Component
 
         $this->toastMessage = 'Leave balances updated for ' . $this->editingEmployeeName . ' by Admin.';
         $this->showEditBalanceModal = false;
+
+        \App\Models\LeaveBalance::where('employee_id', $this->editingEmployeeId)->update([
+            'annual_taken' => max(0, 14 - $this->editAnnualRemaining),
+            'casual_taken' => max(0, 7 - $this->editCasualRemaining),
+            'sick_taken' => max(0, 14 - $this->editSickRemaining),
+        ]);
     }
 
     public function setTab(string $tab): void
@@ -276,6 +282,7 @@ class AttendanceDashboard extends Component
         if (isset($this->leaveRequests[$id])) {
             $this->leaveRequests[$id]['status'] = 'approved';
             $this->toastMessage = 'Leave request for ' . $this->leaveRequests[$id]['name'] . ' approved successfully!';
+            \App\Models\LeaveRequest::where('id', $id)->update(['status' => 'approved', 'approved_by' => auth()->id()]);
         }
     }
 
@@ -286,6 +293,7 @@ class AttendanceDashboard extends Component
         if (isset($this->leaveRequests[$id])) {
             $this->leaveRequests[$id]['status'] = 'rejected';
             $this->toastMessage = 'Leave request for ' . $this->leaveRequests[$id]['name'] . ' rejected.';
+            \App\Models\LeaveRequest::where('id', $id)->update(['status' => 'rejected']);
         }
     }
 

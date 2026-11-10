@@ -7,15 +7,25 @@
                 Manage job vacancies, track candidate pipelines across stages, and schedule interviews.
             </p>
         </div>
-        <button 
-            type="button" 
-            class="px-4 py-2.5 bg-[#b91c1c] hover:bg-[#a11818] text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2 active:scale-95 shrink-0"
-        >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Post New Vacancy</span>
-        </button>
+        <div class="flex items-center gap-2">
+            <button 
+                type="button" 
+                wire:click="runAiScreenerAll"
+                class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2 active:scale-95 shrink-0 border border-slate-700"
+                title="Automatically screen all candidates with Agentic AI"
+            >
+                <span>🤖 Run Agentic AI Screener</span>
+            </button>
+            <button 
+                type="button" 
+                class="px-4 py-2.5 bg-[#b91c1c] hover:bg-[#a11818] text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2 active:scale-95 shrink-0"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Post New Vacancy</span>
+            </button>
+        </div>
     </div>
 
     <!-- 4 Top Metric Cards -->

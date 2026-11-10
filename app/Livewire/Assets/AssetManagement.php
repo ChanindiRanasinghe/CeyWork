@@ -39,7 +39,7 @@ class AssetManagement extends Component
                 'code' => 'AST-001',
                 'category' => 'Laptop',
                 'serial_no' => 'C02XJ1GYJGH7',
-                'assigned_to' => 'Amara Osei',
+                'assigned_to' => 'Amara Jayawardena',
                 'condition' => 'Good',
                 'conditionClass' => 'bg-sky-50 text-sky-700 border-sky-200',
                 'date_assigned' => 'Feb 2021',
@@ -51,7 +51,7 @@ class AssetManagement extends Component
                 'code' => 'AST-002',
                 'category' => 'Monitor',
                 'serial_no' => 'CN-0RT85K',
-                'assigned_to' => 'Dmitri Volkov',
+                'assigned_to' => 'Kasun Perera',
                 'condition' => 'Good',
                 'conditionClass' => 'bg-sky-50 text-sky-700 border-sky-200',
                 'date_assigned' => 'Nov 2021',
@@ -63,7 +63,7 @@ class AssetManagement extends Component
                 'code' => 'AST-003',
                 'category' => 'Phone',
                 'serial_no' => 'F4GTQ9AJNP4',
-                'assigned_to' => 'Marcus Delgado',
+                'assigned_to' => 'Dilani Jayasinghe',
                 'condition' => 'Good',
                 'conditionClass' => 'bg-sky-50 text-sky-700 border-sky-200',
                 'date_assigned' => 'Jul 2022',
@@ -75,7 +75,7 @@ class AssetManagement extends Component
                 'code' => 'AST-004',
                 'category' => 'Laptop',
                 'serial_no' => 'C02QW3ZXNNN',
-                'assigned_to' => 'Priya Nair',
+                'assigned_to' => 'Chathura Wickramasinghe',
                 'condition' => 'Good',
                 'conditionClass' => 'bg-sky-50 text-sky-700 border-sky-200',
                 'date_assigned' => 'Sep 2022',
@@ -87,7 +87,7 @@ class AssetManagement extends Component
                 'code' => 'AST-005',
                 'category' => 'Keyboard',
                 'serial_no' => '2207LZ71688',
-                'assigned_to' => 'Kai Nakamura',
+                'assigned_to' => 'Nimali Fernando',
                 'condition' => 'Good',
                 'conditionClass' => 'bg-sky-50 text-sky-700 border-sky-200',
                 'date_assigned' => 'Aug 2022',
@@ -165,6 +165,16 @@ class AssetManagement extends Component
 
         array_unshift($this->assets, $newAsset);
 
+        \App\Models\Asset::create([
+            'company_id' => auth()->user()->company_id ?? 1,
+            'name' => $this->name,
+            'code' => $this->code,
+            'category' => $this->category,
+            'serial_no' => $this->serial_no,
+            'condition' => $this->condition,
+            'assigned_date' => $this->assigned_to !== 'Unassigned' ? now() : null,
+        ]);
+
         $this->successMessage = 'Asset "' . $this->name . '" registered successfully!';
         $this->showCreateModal = false;
     }
@@ -193,10 +203,21 @@ class AssetManagement extends Component
 
         $this->successMessage = 'Asset "' . $this->name . '" updated successfully by Admin!';
         $this->showEditModal = false;
+
+        \App\Models\Asset::where('code', $this->code)->update([
+            'name' => $this->name,
+            'category' => $this->category,
+            'serial_no' => $this->serial_no,
+            'condition' => $this->condition,
+        ]);
     }
 
     public function deleteAsset(int $id): void
     {
+        $target = collect($this->assets)->firstWhere('id', $id);
+        if ($target) {
+            \App\Models\Asset::where('code', $target['code'])->delete();
+        }
         $this->assets = array_values(array_filter($this->assets, fn($a) => $a['id'] !== $id));
         $this->successMessage = 'Asset deleted successfully!';
     }
