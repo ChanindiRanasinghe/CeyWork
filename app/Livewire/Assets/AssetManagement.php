@@ -165,6 +165,16 @@ class AssetManagement extends Component
 
         array_unshift($this->assets, $newAsset);
 
+        \App\Models\Asset::create([
+            'company_id' => auth()->user()->company_id ?? 1,
+            'name' => $this->name,
+            'code' => $this->code,
+            'category' => $this->category,
+            'serial_no' => $this->serial_no,
+            'condition' => $this->condition,
+            'assigned_date' => $this->assigned_to !== 'Unassigned' ? now() : null,
+        ]);
+
         $this->successMessage = 'Asset "' . $this->name . '" registered successfully!';
         $this->showCreateModal = false;
     }
@@ -193,10 +203,21 @@ class AssetManagement extends Component
 
         $this->successMessage = 'Asset "' . $this->name . '" updated successfully by Admin!';
         $this->showEditModal = false;
+
+        \App\Models\Asset::where('code', $this->code)->update([
+            'name' => $this->name,
+            'category' => $this->category,
+            'serial_no' => $this->serial_no,
+            'condition' => $this->condition,
+        ]);
     }
 
     public function deleteAsset(int $id): void
     {
+        $target = collect($this->assets)->firstWhere('id', $id);
+        if ($target) {
+            \App\Models\Asset::where('code', $target['code'])->delete();
+        }
         $this->assets = array_values(array_filter($this->assets, fn($a) => $a['id'] !== $id));
         $this->successMessage = 'Asset deleted successfully!';
     }
