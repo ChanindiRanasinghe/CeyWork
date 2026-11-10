@@ -164,6 +164,16 @@ class TrainingDashboard extends Component
 
         array_unshift($this->courses, $newCourse);
 
+        \App\Models\Training::create([
+            'title' => $this->newTitle,
+            'provider' => $this->newProvider,
+            'category' => $this->newCategory,
+            'duration' => $this->newDuration,
+            'deadline' => $this->newDeadline,
+            'is_mandatory' => $this->newMandatory,
+            'total_enrolled' => $this->newTotalEnrolled > 0 ? $this->newTotalEnrolled : 100,
+        ]);
+
         $this->successMessage = 'Training session "' . $this->newTitle . '" created successfully!';
         $this->showCreateModal = false;
     }
@@ -194,10 +204,22 @@ class TrainingDashboard extends Component
 
         $this->successMessage = 'Training session "' . $this->newTitle . '" updated successfully!';
         $this->showEditModal = false;
+
+        \App\Models\Training::where('title', $this->newTitle)->update([
+            'provider' => $this->newProvider,
+            'duration' => $this->newDuration,
+            'deadline' => $this->newDeadline,
+            'category' => $this->newCategory,
+            'is_mandatory' => $this->newMandatory,
+        ]);
     }
 
     public function deleteCourse(int $courseId): void
     {
+        $target = collect($this->courses)->firstWhere('id', $courseId);
+        if ($target) {
+            \App\Models\Training::where('title', $target['title'])->delete();
+        }
         $this->courses = array_values(array_filter($this->courses, fn($c) => $c['id'] !== $courseId));
         $this->successMessage = 'Training session deleted successfully!';
     }
