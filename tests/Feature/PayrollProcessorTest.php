@@ -52,4 +52,19 @@ class PayrollProcessorTest extends TestCase
             ->call('exportPayslipSummaryCsv')
             ->assertFileDownloaded();
     }
+
+    public function test_payroll_finalization_persists_statutory_records(): void
+    {
+        $admin = User::where('email', 'admin@ceywork.lk')->first();
+
+        Livewire::actingAs($admin)
+            ->test(PayrollProcessor::class)
+            ->call('finalizeMonthlyPayroll', '2026-09')
+            ->assertHasNoErrors();
+
+        $this->assertDatabaseHas('payroll_records', [
+            'month' => '2026-09',
+            'status' => 'processed',
+        ]);
+    }
 }

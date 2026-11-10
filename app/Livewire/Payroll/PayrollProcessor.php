@@ -76,6 +76,34 @@ class PayrollProcessor extends Component
         return response()->stream($callback, 200, $headers);
     }
 
+    public function finalizeMonthlyPayroll(string $month = '2026-08'): void
+    {
+        $employees = Employee::where('status', 'active')->get();
+        foreach ($employees as $emp) {
+            $basic = $emp->basic_salary > 0 ? (float) $emp->basic_salary : 250000.00;
+            $eeEpf = round($basic * 0.08, 2);
+            $erEpf = round($basic * 0.12, 2);
+            $erEtf = round($basic * 0.03, 2);
+            $net = round($basic - $eeEpf, 2);
+
+            \App\Models\PayrollRecord::updateOrCreate(
+                ['employee_id' => $emp->id, 'month' => $month],
+                [
+                    'basic_salary' => $basic,
+                    'allowances' => 0.00,
+                    'epf_employee' => $eeEpf,
+                    'epf_employer' => $erEpf,
+                    'etf_employer' => $erEtf,
+                    'net_salary' => $net,
+                    'status' => 'processed',
+                    'payment_date' => now()->toDateString(),
+                ]
+            );
+        }
+
+        session()->flash('success', "Payroll for {$month} finalized with EPF/ETF statutory contributions saved to database.");
+    }
+
     public function render()
     {
         $user = Auth::user() ?? User::first();
