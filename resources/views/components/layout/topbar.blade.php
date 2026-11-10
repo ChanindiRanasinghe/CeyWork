@@ -21,18 +21,30 @@ if (empty($userInitials)) { $userInitials = 'SR'; }
             </button>
         </div>
 
-        <!-- Search Bar -->
-        <div class="relative flex-1 max-w-md">
-            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+        <!-- Search Bar & AI Trigger -->
+        <div class="relative flex-1 max-w-md flex items-center gap-2">
+            <div class="relative flex-1">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input 
+                    type="text" 
+                    onclick="Livewire.dispatch('openAgenticCommandBar')"
+                    placeholder="Search CEYWork or press Ctrl+K..." 
+                    class="w-full bg-[#f4f6f9] border border-slate-200/80 text-slate-900 text-xs rounded-xl pl-10 pr-4 py-2 focus:bg-white focus:ring-2 focus:ring-[#00b4a2] focus:border-transparent focus:outline-none transition placeholder:text-slate-400 cursor-pointer"
+                />
             </div>
-            <input 
-                type="text" 
-                placeholder="Search SmartHR..." 
-                class="w-full bg-[#f4f6f9] border border-slate-200/80 text-slate-900 text-xs rounded-xl pl-10 pr-4 py-2 focus:bg-white focus:ring-2 focus:ring-[#00b4a2] focus:border-transparent focus:outline-none transition placeholder:text-slate-400"
-            />
+            <button 
+                type="button" 
+                onclick="Livewire.dispatch('openAgenticCommandBar')"
+                class="px-3 py-1.5 bg-[#b91c1c] hover:bg-[#a11818] text-white text-xs font-bold rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0"
+                title="Launch Agentic AI Co-pilot (Ctrl+K)"
+            >
+                <span>🤖 AI Agent</span>
+                <span class="px-1.5 py-0.2 bg-white/20 rounded text-[10px] font-mono">Ctrl+K</span>
+            </button>
         </div>
     </div>
 

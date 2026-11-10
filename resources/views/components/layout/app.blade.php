@@ -26,6 +26,18 @@
         </main>
     </div>
 
+    <!-- Global Agentic AI Command Bar -->
+    <livewire:ai.agentic-command-bar />
+
+    <script>
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                Livewire.dispatch('openAgenticCommandBar');
+            }
+        });
+    </script>
+
     @livewireScripts
 </body>
 </html>
