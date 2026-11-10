@@ -67,6 +67,7 @@ CEYWork contains a comprehensive automated feature and unit testing suite coveri
 php artisan test
 
 # Run specific module tests
+php vendor/phpunit/phpunit/phpunit tests/Unit/EnterpriseModelsTest.php
 php vendor/phpunit/phpunit/phpunit tests/Feature/AgenticAiTest.php
 php vendor/phpunit/phpunit/phpunit tests/Feature/PayrollProcessorTest.php
 php vendor/phpunit/phpunit/phpunit tests/Feature/EmployeeManagementTest.php
